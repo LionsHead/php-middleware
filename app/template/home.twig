@@ -1,0 +1,26 @@
+{% extends 'main.twig' %}
+{% block css %}
+.hello {
+    margin-top: 50px;
+}
+{% endblock %}
+{% block content %}
+{% spaceless %}
+<div class="container">
+
+<div class="row hello">
+        <h1>Welcome to HERESY</h1>
+        <div class="well">
+             {{ title }}
+        </div>
+</div>
+
+<div class="row text-center">
+    <p><img src="http://152617.selcdn.com/d2cdn/d2.png"></p>
+</div>
+
+<div class="row">
+    <pre> {{ dump(enviroment) }} </pre>
+</div>
+{% endspaceless %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'main.twig' %}
+{% block css %}
+{{ parent() }}
+.titleExt {
+    font-size: 900%;
+}
+
+.headExt {
+    width: 100%;
+    margin: 1em;
+}
+{% endblock %}
+{% block content %} {% spaceless %}
+<div class="container">
+    <div class="row">
+        <div class="headExt">
+            <h1 class="titleExt"> {{ code }}</h1>
+            <h2><span> {{ title }} </span></h2>
+        </div>
+        <div class="text-center"> </div>
+    </div>
+</div>
+{% endspaceless %} {% endblock %}

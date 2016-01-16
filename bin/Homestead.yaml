@@ -1,0 +1,21 @@
+---
+ip: "192.168.10.10"
+memory: 2048
+cpus: 1
+provider: virtualbox
+
+#authorize: ~/.ssh/id_rsa.pub
+
+#keys:
+#    - ~/.ssh/id_rsa
+
+folders:
+    - map: C:/VM/Middleware
+      to: /home/vagrant/LionHead
+
+sites:
+    - map: homestead.app
+      to: /home/vagrant/LionHead/public
+
+databases:
+    - development_db
