@@ -1,7 +1,4 @@
 bin/.vagrant/
-app/cache/twig_cache/*
-config/*
-db/*
 tests/*
 vendor/*
 phinx.yaml
