@@ -55,7 +55,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
     public function testDuplicateVariableNameError() {
         simpleDispatcher(function(RouteCollector $r) {
             $r->addRoute('GET', '/foo/{test}/{test:\d+}', 'handler0');
-        }, $this->generateDispatcherOptions());
+        }, []);
     }
 
     /**
@@ -66,7 +66,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
         simpleDispatcher(function(RouteCollector $r) {
             $r->addRoute('GET', '/user/{id}', 'handler0'); // oops, forgot \d+ restriction ;)
             $r->addRoute('GET', '/user/{name}', 'handler1');
-        }, $this->generateDispatcherOptions());
+        }, []);
     }
 
     /**
@@ -77,7 +77,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
         simpleDispatcher(function(RouteCollector $r) {
             $r->addRoute('GET', '/user', 'handler0');
             $r->addRoute('GET', '/user', 'handler1');
-        }, $this->generateDispatcherOptions());
+        }, []);
     }
 
     /**
@@ -88,7 +88,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
         simpleDispatcher(function(RouteCollector $r) {
             $r->addRoute('GET', '/user/{name}', 'handler0');
             $r->addRoute('GET', '/user/nikic', 'handler1');
-        }, $this->generateDispatcherOptions());
+        }, []);
     }
 
     /**
@@ -98,7 +98,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
     public function testCapturing() {
         simpleDispatcher(function(RouteCollector $r) {
             $r->addRoute('GET', '/{lang:(en|de)}', 'handler0');
-        }, $this->generateDispatcherOptions());
+        }, []);
     }
 
     public function provideFoundDispatchCases() {
