@@ -1,5 +1,4 @@
 bin/.vagrant/
-tests/*
 vendor/*
 phinx.yaml
 

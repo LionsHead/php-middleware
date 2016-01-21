@@ -171,11 +171,6 @@ class Homestead
             s.path = scriptDir + "/create-mysql.sh"
             s.args = [db]
           end
-
-          config.vm.provision "shell" do |s|
-            s.path = scriptDir + "/create-postgres.sh"
-            s.args = [db]
-          end
         end
     end
 
