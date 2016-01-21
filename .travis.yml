@@ -9,6 +9,7 @@ php:
 
 before_script:
      # Composer install and update;
-     - ./bin/.travis.install.sh
+     - composer self-update
+     - composer update
 
 script: phpunit --configuration phpunit.xml.dist --coverage-text
