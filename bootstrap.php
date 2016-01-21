@@ -44,13 +44,3 @@ require LH_PATH . 'app/routes.php';
 require LH_PATH . 'app/middleware.php';
 
 $app->run();
-
-
-    $convert = function ($size) {
-        $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
-        if ($size > 0)
-            $re = round($size / pow(1024, ($i = floor(log($size, 1024)))), 2);
-        else
-            $re = 0;
-        return $re . ' ' . $unit[$i];
-    };
