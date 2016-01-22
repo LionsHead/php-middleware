@@ -188,7 +188,8 @@ class Kernel implements KernelInterface
      */
     public function addRoute($method, $uri, callable $handler)
     {
-        $this->routes[$method.'_'.$uri] = [
+        $name = strtoupper($method) .'_'. $uri;
+        $this->routes[$name] = [
             'method' => $method,
             'uri' => '/' . trim($uri, '/'),
             'handler' => $handler
@@ -226,6 +227,7 @@ class Kernel implements KernelInterface
             case Dispatcher::METHOD_NOT_ALLOWED:
                 // 405 Method Not Allowed
                 $allowedMethods = $routeInfo[1];
+
                 throw new NotFoundException("Method Not Allowed", 405);
             break;
             case Dispatcher::FOUND:
@@ -237,7 +239,6 @@ class Kernel implements KernelInterface
                      * имеется функция указанная в списке роутеров
                      * принимает в себя аргументы и инстанс $app
                      */
-
                     return $handler($routeInfo[2], $this->get());
                 } else {
                     throw new NotFoundException("Not Acceptable", 406);
