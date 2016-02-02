@@ -42,10 +42,11 @@ class Kernel implements KernelInterface
     {
         // di container
         $this->container = new Container($this);
-        // обработчики исключений
+        // exception handler
         new Handler($this->get());
         // middleware stack
         $this->specs = new \SplStack();
+
     }
 
     /**
@@ -122,7 +123,13 @@ class Kernel implements KernelInterface
      */
     public function handle(Request $request, $type = 1, $catch = true)
     {
-        return call_user_func($this, $request, $type, $catch);
+        $response = call_user_func($this, $request, $type, $catch);
+
+        if (!$response instanceof Response) {
+            throw new \RuntimeException('Kernel response error - object non type Response');
+        }
+
+        return $response;
     }
 
     /**
@@ -159,6 +166,7 @@ class Kernel implements KernelInterface
 
         return $this->routeHandler( $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $request->getRequestUri()) );
     }
+
     /**
      * return di container
      * @param $name string
@@ -214,6 +222,21 @@ class Kernel implements KernelInterface
         return $this->dispatcher;
     }
 
+    /**
+     * [setHttpResponse description]
+     * @method setHttpResponse
+     * @param  array           $routeInfo route info array [ 0 - callable, 1 - arguments]
+     */
+    public function setHttpResponse(array $routeInfo)
+    {
+        $response = $routeInfo[1]($routeInfo[2],$this->get());
+
+        // return instance of Response
+        if (!$response instanceof Response) {
+           $response = $this->get('response')->setContent($response);
+        }
+        return $response;
+    }
 
     /**
      * [routeInfo description]
@@ -231,15 +254,13 @@ class Kernel implements KernelInterface
                 throw new NotFoundException("Method Not Allowed", 405);
             break;
             case Dispatcher::FOUND:
-                // http 200
-                $handler = $routeInfo[1];
-                // ... вызов $handler с аргументами запроса
-                if (is_callable($handler) && ($handler instanceof Closure)) {
+                // вызов $handler с аргументами запроса
+                if (is_callable($routeInfo[1]) && ($routeInfo[1] instanceof Closure)) {
                     /**
                      * имеется функция указанная в списке роутеров
                      * принимает в себя аргументы и инстанс $app
                      */
-                    return $handler($routeInfo[2], $this->get());
+                    return $this->setHttpResponse($routeInfo);
                 } else {
                     throw new NotFoundException("Not Acceptable", 406);
                 }
@@ -299,5 +320,14 @@ class Kernel implements KernelInterface
         $this->send($response, false);
 
         $this->terminate($request, $response);
+    }
+
+    /**
+     * use terminate?
+     * @method __destruct
+     */
+    public function __destruct()
+    {
+        # code...
     }
 }

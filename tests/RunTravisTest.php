@@ -35,7 +35,7 @@ class RunTravisTest extends \PHPUnit_Framework_TestCase
      /**
      * @dataProvider additionProvider
      */
-    public function testRunDifferentPHPVersions($method, $path,  $response)
+    public function testRunDifferentPHPVersions($method, $path, $response = null)
     {
         $_SERVER['REQUEST_METHOD'] = $method;
 
@@ -50,9 +50,9 @@ class RunTravisTest extends \PHPUnit_Framework_TestCase
                 return $value[2];
             });
         }
-
-        $this->assertEquals($response, $app->handle( Request::create($path, $method) )); #
-
+        
+        $return = $app->handle( Request::create($path, $method) )->getContent();
+        $this->assertEquals($response, $return); #
     }
 
     public function testException()

@@ -21,10 +21,10 @@ class Twig extends App
 
         $this->twig_loader = new \Twig_Loader_Filesystem(PATH_TEMPLATE);
         $this->twig_env = new \Twig_Environment($this->twig_loader, [
-          'cache' => PATH_TEMPLATE_CACHE,
-          'debug' => true,
-          'autoescape' => false
-      ]);
+            'cache' => PATH_TEMPLATE_CACHE,
+            'debug' => true,
+            'autoescape' => false
+        ]);
 
         $this->twig_env->addExtension(new \Twig_Extension_Debug());
         $this->twig_env->getExtension('core')->setDateFormat('j.m.Y, H:i', '%d days');

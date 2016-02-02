@@ -8,7 +8,7 @@ use \LionHead\Container;
 /**
  *
  */
-class Mysql extends PDO
+class Mysql
 {
     private $pdo_instance;
     private $container = null;
