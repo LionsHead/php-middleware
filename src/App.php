@@ -2,8 +2,8 @@
 namespace Lionhead;
 
 use \Exception;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
+use \LionHead\Http\Request;
+use \LionHead\Http\Response;
 /**
  *
  */

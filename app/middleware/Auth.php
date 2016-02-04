@@ -2,7 +2,7 @@
 
 namespace App\Middleware;
 
-use \LionHead\Auth\Session ;
+use \LionHead\Auth\Session;
 /**
  *
  */

@@ -3,8 +3,8 @@
 namespace LionHead;
 
 use \Pimple\Container as Pimple;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
+use \LionHead\Http\Request;
+use \LionHead\Http\Response;
 /**
  *
  */

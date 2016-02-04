@@ -4,8 +4,8 @@ namespace App\Middleware;
 
 use \LionHead\Http\KernelInterface;
 use \LionHead\Http\TerminableInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use \LionHead\Http\Request;
+use \LionHead\Http\Response;
 
 class Terminate implements TerminableInterface
 {

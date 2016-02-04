@@ -4,7 +4,7 @@
 namespace App;
 
 use \LionHead\App;
-use \Symfony\Component\HttpFoundation\Response;
+use \LionHead\Http\Response;
 /**
  * start page
  */

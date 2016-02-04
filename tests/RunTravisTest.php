@@ -1,7 +1,7 @@
 <?php
 
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
+use \LionHead\Http\Request;
+use \LionHead\Http\Response;
 
 /**
  * надеюсь это никто не увидит
@@ -50,7 +50,7 @@ class RunTravisTest extends \PHPUnit_Framework_TestCase
                 return $value[2];
             });
         }
-        
+
         $return = $app->handle( Request::create($path, $method) )->getContent();
         $this->assertEquals($response, $return); #
     }
