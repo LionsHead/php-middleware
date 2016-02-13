@@ -20,6 +20,8 @@ class Pagination
     private $limit = 10;
     private $offset = 0;
 
+    private $name = 'page';
+
     /**
      * [__construct description]
      * @method __construct
@@ -29,13 +31,20 @@ class Pagination
      */
     function __construct($count = 10, $limit = 10, $current = null)
     {
-        $get_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $this->current_page = abs( (is_null($current)) ? $get_page : $current );
+        $get_page = isset($_GET[$this->name]) ? intval($_GET[$this->name]) : 1;
+        $this->current_page = abs( is_null($current) ? $get_page : $current );
 
         $this->count = $count;
         $this->limit = $limit;
 
         $this->setPagination();
+
+        return $this;
+    }
+
+    public function setName($name = 'page')
+    {
+        $this->name = $name;
 
         return $this;
     }
