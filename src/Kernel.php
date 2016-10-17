@@ -16,6 +16,7 @@ use \LionHead\Http\Response;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
+use \Dotenv\Dotenv as Environment;
 
 
 /**
@@ -40,13 +41,20 @@ class Kernel implements KernelInterface
      */
     function __construct()
     {
+        $env = new Environment(ROOT_PATH);
+        $env->load();
+
         // di container
         $this->container = new Container($this);
         // exception handler
         new Handler($this->get());
         // middleware stack
         $this->specs = new \SplStack();
+    }
 
+    public function env()
+    {
+        return getenv('APP_ENV');
     }
 
     /**

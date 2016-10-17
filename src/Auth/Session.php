@@ -64,7 +64,7 @@ class Session {
             ini_set('session.gc_divisor', '100');
 
             // выбор хранилища
-            switch (SESSION_SAVE_HANDLER) {
+            switch (strtolower(getenv('SESSION_STORE'))) {
                 case 'memcached':
                     ini_set('session.save_handler', 'memcached');
                     ini_set('session.save_path', 'localhost:11211?persistent=1&weight=1&timeout=1&retry_interval=15');
