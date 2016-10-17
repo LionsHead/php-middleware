@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$environment = new \Dotenv\Dotenv(__DIR__ . '/../');
+$environment->load();
+
+
+$host = "db";
+
+$root_password = getenv('DB_ROOT_PASSWORD');
+
+$user = getenv('DB_PASSWORD');
+$pass = getenv('DB_PASSWORD');
+$db = getenv('DB_NAME');
+
+try {
+    $dbh = new \PDO("mysql:host=db", 'root', $root_password);
+
+    $dbh->exec("CREATE DATABASE `$db`;
+            CREATE USER '$user'@'localhost' IDENTIFIED BY '$pass';
+            GRANT ALL ON `$db`.* TO '$user'@'localhost';
+            FLUSH PRIVILEGES;")
+    or die(print_r($dbh->errorInfo(), true));
+
+} catch (PDOException $e) {
+    die("DB ERROR: ". $e->getMessage());
+}

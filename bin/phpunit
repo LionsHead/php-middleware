@@ -1,0 +1,50 @@
+#!/usr/bin/env php
+<?php
+/*
+ * This file is part of PHPUnit.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+if (version_compare('5.6.0', PHP_VERSION, '>')) {
+    fwrite(
+        STDERR,
+        'This version of PHPUnit requires PHP 5.6; using the latest version of PHP is highly recommended.' . PHP_EOL
+    );
+
+    die(1);
+}
+
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
+
+define('DEBAG_MODE', true);
+
+define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
+
+ini_set('display_errors', true);
+ini_set('error_reporting', E_ALL);
+
+//  сессии
+define('SESSION_LIFE_TIME', 1728000);
+// временная зона
+date_default_timezone_set('Etc/GMT-3');
+
+// путь к приложению
+define('PATH_APP', ROOT_PATH . 'app' . DIRECTORY_SEPARATOR);
+// конфигурация
+define('PATH_CONFIG', ROOT_PATH . 'config' . DIRECTORY_SEPARATOR);
+// шаблоны
+define('PATH_TEMPLATE', PATH_APP .  'template' . DIRECTORY_SEPARATOR);
+// кэш
+define('PATH_CACHE', ROOT_PATH . 'cache' . DIRECTORY_SEPARATOR);
+define('PATH_TEMPLATE_CACHE', PATH_CACHE .  'twig_cache' . DIRECTORY_SEPARATOR);
+
+
+require __DIR__ . '/../vendor/autoload.php';
+
+PHPUnit_TextUI_Command::main();
