@@ -36,14 +36,15 @@ class Container extends Pimple
         $this['app'] = $app;
 
         // environment
-        $this['db_params'] = require_once PATH_CONFIG . 'environment/'.$app->env().'.php';
+        $this['environment'] = empty(getenv('APP_ENV')) ? 'development' : getenv('APP_ENV');
 
         // response
         $this['response'] = new Response(null, 200);
 
         // database driver
         $this['database'] = function ($c) {
-            return new \LionHead\DataBase\Mysql($c, $this['db_params']);
+            # TODO: костыль
+            return new \LionHead\DataBase\Mysql($c, require_once PATH_CONFIG . 'environment/'.$app->env().'.php');
         };
 
         // user driver
