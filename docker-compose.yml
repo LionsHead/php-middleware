@@ -1,0 +1,20 @@
+web:
+  build: .
+  command: php -S 0.0.0.0:8000 -t /php_app/public
+  links:
+    - db
+  ports:
+    - "8000:8000"
+  volumes:
+    - ./:/php_app
+db:
+  image: mysql
+  volumes:
+    - /var/lib/mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: development
+    MYSQL_USER: development
+    MYSQL_PASSWORD: development
+    MYSQL_DATABASE: development

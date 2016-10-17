@@ -9,4 +9,4 @@ define('LH_PUBLIC', $_SERVER['DOCUMENT_ROOT'] . DS);
 define('HOME_URL', 'localhost');
 
 
-require ('../bootstrap.php');
+require '../bootstrap.php';

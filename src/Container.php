@@ -19,7 +19,7 @@ class Container extends Pimple
     public function __construct(Kernel $app)
     {
         parent::__construct();
-        $this->setDefaultContainers($app);
+        $this->createDefaultContainers($app);
     }
 
     /**
@@ -28,19 +28,22 @@ class Container extends Pimple
      *  - database  = instanceof db provider
      *  - auth      = instanceof user
      *  - view      = instanceof Twig
-     * @method setDefaultContainers
+     * @method createDefaultContainers
      */
-    private function setDefaultContainers($app)
+    private function createDefaultContainers($app)
     {
         // kernel application
         $this['app'] = $app;
+
+        // environment
+        $this['db_params'] = require_once PATH_CONFIG . 'environment/'.$app->env().'.php';
 
         // response
         $this['response'] = new Response(null, 200);
 
         // database driver
         $this['database'] = function ($c) {
-            return new \LionHead\DataBase\Mysql($c, require_once PATH_CONFIG.'/mysql.php');
+            return new \LionHead\DataBase\Mysql($c, $this['db_params']);
         };
 
         // user driver

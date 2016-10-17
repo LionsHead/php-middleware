@@ -20,6 +20,6 @@
  *
  */
 
-$app->push('App\Middleware\Auth', SESSION_SAVE_HANDLER);
+$app->push('App\Middleware\Auth', getenv('SESSION_STORE'));
 
 $app->push('App\Middleware\Terminate');
