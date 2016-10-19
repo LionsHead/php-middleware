@@ -1,5 +1,6 @@
 vendor/*
 phinx.yaml
+cache/twig_cache/*
 
 # Windows image file caches
 Thumbs.db
