@@ -47,7 +47,7 @@ class Kernel implements KernelInterface
         $env->load();
         if (empty(getenv('APP_ENV'))) putenv('APP_ENV=development');
 
-        $this->configs = require_once PATH_CONFIG . 'environment/' . getenv('APP_ENV') . '.php';
+        $this->configs = $this->setEnvironmentConfig();
 
         // di container
         $this->container = new Container($this);
@@ -62,8 +62,14 @@ class Kernel implements KernelInterface
         return getenv('APP_ENV');
     }
 
-    public function config($name = '') {
+    public function config($name = '')
+    {
         return isset($this->configs[$name]) ? $this->configs[$name] : null;
+    }
+
+    private function setEnvironmentConfig()
+    {
+        require_once PATH_CONFIG . 'environment/' . getenv('APP_ENV') . '.php';
     }
 
     /**
