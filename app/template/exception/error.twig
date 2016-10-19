@@ -1,4 +1,4 @@
-{% extends 'main.twig' %}
+{% extends 'layout.twig' %}
 {% block css %}
 {{ parent() }}
 .titleExt {
@@ -8,6 +8,9 @@
 .headExt {
     width: 100%;
     margin: 1em;
+}
+.container {
+    width: 950px;
 }
 {% endblock %}
 {% block content %} {% spaceless %}

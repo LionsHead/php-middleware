@@ -24,6 +24,8 @@ try {
             FLUSH PRIVILEGES;")
     or die(print_r($dbh->errorInfo(), true));
 
+    print "$db CREATE";
+
 } catch (PDOException $e) {
     die("DB ERROR: ". $e->getMessage());
 }

@@ -46,10 +46,10 @@ class Handler
     public function getException($e)
     {
         if (in_array('LionHead\Exception\ExceptionInterface', class_implements($e))) {
-            $this->UserExceptionError($e);
+            $this->userExceptionError($e);
         }
         else {
-            $this->ExceptionError($e);
+            $this->standartExceptionError($e);
         }
 
     }
@@ -64,7 +64,7 @@ class Handler
     {
         list($errno, $str, $file, $line, $errcontext) = $args;
         $exit = false;
-        if (defined('DEBAG_MODE') && DEBAG_MODE == true){
+        if (defined('DEBUG_MODE') && DEBUG_MODE == true){
             switch ($errno) {
                 case E_USER_ERROR:
                     echo "<b>Fatal Error!</b> [{$errno}] {$str}<br />\n";
@@ -114,72 +114,75 @@ class Handler
      * @method ExceptionError
      * @param  [type]         $e [description]
      */
-    private function ExceptionError($e){
+    private function standartExceptionError($e){
+        // ( new HtmlTemplate($this->container, $e) )->renderException();
 
-        echo '<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <title> '. $e->getMessage() .' </title>
-<style>
-pre {
-    display: block;
-    padding: 5px; margin-top: 10px;
-    color: #333;
-    word-break: break-all; word-wrap: break-word;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc; border-radius: 4px;
-}
-body {
-    min-width: 950px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 14px;
-    line-height: 1.42857143;
-    color: #333;
-    background-color: #fff;
-    margin: 0;
-}
-.TitleException {
-    position: relative;
-    min-height: 40px;
-    margin-bottom: 5px;
-    font-size: 24px;
-    padding: 5px;
-}
-.Exception {
-    width: 950px;
-    max-width: none !important;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
-        </style>
-        </head>
-        <body>
-<div class="Exception">
-<div class="TitleException"> <b>Ошибка выполнения сценария:</b> </div>
-<a href="/">На главную</a> ';
-        if (defined('DEBAG_MODE') && DEBAG_MODE == true){
-            // при включенном режиме отладки
-            echo '<br> Details: <br>';
-            echo '<pre>';
-            echo " Message: ", $e->getMessage()." \n";
-            echo " Code: ".$e->getCode()." \n";
-            echo " File: ", $e->getFile() ," \n";
-            echo " Line: ", $e->getLine() ," \n";
-            echo '</pre>';
-            echo " Trace \n";
-            echo '<pre>';
-            echo  $e->getTraceAsString() , "\n";
-            echo '</pre>';
-            #echo " Full Trace \n";
-            #echo '<pre>';
-            #print_r($e->getTrace());
-            #echo '</pre>';
-        } else {
-            // обычный вариант
-            echo '<b> Details:</b> '.$e->getMessage();
-        }
-        echo '</div> </body></html>';
+        echo ( new StandartException($e) )->getUserMessage($this->container);
+
+//         echo '<!DOCTYPE html>
+// <html lang="ru">
+// <head>
+//     <title> '. $e->getMessage() .' </title>
+// <style>
+// pre {
+//     display: block;
+//     padding: 5px; margin-top: 10px;
+//     color: #333;
+//     word-break: break-all; word-wrap: break-word;
+//     background-color: #f5f5f5;
+//     border: 1px solid #ccc; border-radius: 4px;
+// }
+// body {
+//     min-width: 950px;
+//     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 14px;
+//     line-height: 1.42857143;
+//     color: #333;
+//     background-color: #fff;
+//     margin: 0;
+// }
+// .TitleException {
+//     position: relative;
+//     min-height: 40px;
+//     margin-bottom: 5px;
+//     font-size: 24px;
+//     padding: 5px;
+// }
+// .Exception {
+//     width: 950px;
+//     max-width: none !important;
+//     padding-right: 15px;
+//     padding-left: 15px;
+//     margin-right: auto;
+//     margin-left: auto;
+// }
+//         </style>
+//         </head>
+//         <body>
+// <div class="Exception">
+// <div class="TitleException"> <b>Ошибка выполнения сценария:</b> </div>
+// <a href="/">На главную</a> ';
+//         if (defined('DEBUG_MODE') && DEBUG_MODE == true){
+//             // при включенном режиме отладки
+//             echo '<br> Details: <br>';
+//             echo '<pre>';
+//             echo " Message: ", $e->getMessage()." \n";
+//             echo " Code: ".$e->getCode()." \n";
+//             echo " File: ", $e->getFile() ," \n";
+//             echo " Line: ", $e->getLine() ," \n";
+//             echo '</pre>';
+//             echo " Trace \n";
+//             echo '<pre>';
+//             echo  $e->getTraceAsString() , "\n";
+//             echo '</pre>';
+//             echo " Full Trace \n";
+//             echo '<pre>';
+//             print_r($e->getTrace());
+//             echo '</pre>';
+//         } else {
+//             // обычный вариант
+//             echo '<b> Details:</b> '.$e->getMessage();
+//         }
+//         echo '</div> </body></html>';
     }
 
     /**
@@ -187,7 +190,7 @@ body {
      * @method UserExceptionError
      * @param  ExceptionInterface $e [description]
      */
-    public function UserExceptionError(ExceptionInterface $e)
+    public function userExceptionError(ExceptionInterface $e)
     {
          echo $e->getUserMessage($this->container);
     }

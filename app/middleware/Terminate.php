@@ -23,16 +23,20 @@ class Terminate implements TerminableInterface
 
     public function bar(callable $convert)
     {
-        echo '<div class="container">
-            <p>  <span class="label label-'. ( (defined('DEBAG_MODE') && DEBAG_MODE == true) ? 'danger"> Development:' : 'success"> Production:' ) .' <span> </p>
-            <p> Microtime: <b>' . ( microtime(true) - LH_START_TIME ) . '</b> </p>
-            <p> Memory: ' . $convert(LH_START_MEMORY) . ' =>  ' . $convert(memory_get_usage()) . ', Peak: ' . $convert(memory_get_peak_usage()) . ' </p>
+        $label = defined('DEBUG_MODE') && DEBUG_MODE == true ? 'danger'  : 'success';
+        $debug = defined('DEBUG_MODE') && DEBUG_MODE == true ? 'true'  : 'false';
+        echo '<div class="footer">
+          <div class="col-xs-2"> <span class="label label-'. $label .'">DEBAG MODE: '. $debug .'</span> </div>
+          <div class="col-xs-2"> ENV: '. getenv('APP_ENV') .' </div>
+          <div class="col-xs-4"> Microtime: <b>' . ( microtime(true) - APP_START_TIME ) . '</b> </div>
+          <div class="col-xs-4"> <span class="label label-info">Memory</span> start: ' . $convert(APP_START_MEMORY) . ', total: ' . $convert(memory_get_usage()) . ', Peak: ' . $convert(memory_get_peak_usage()) . ' </div>
+          <p> Time: '.date(DATE_RFC822).'</p>
         </div>';
     }
 
     public function terminate(Request $request, Response $response)
     {
-        if (defined('DEBAG_MODE') && DEBAG_MODE == true) {
+        if (defined('DEBUG_MODE') && DEBUG_MODE == true) {
             $callable = $this->closure;
             $this->bar($callable);
         }
