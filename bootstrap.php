@@ -12,9 +12,15 @@ define('SESSION_LIFE_TIME', 1728000);
 // временная зона
 date_default_timezone_set('Etc/GMT-3');
 
-
-
-
+// путь к приложению
+define('PATH_APP', ROOT_PATH . 'app/' );
+// конфигурация
+define('PATH_CONFIG', ROOT_PATH . 'config/');
+// шаблоны
+define('PATH_TEMPLATE', PATH_APP .  'template/' );
+// кэш
+define('PATH_CACHE', ROOT_PATH . 'cache/');
+define('PATH_TEMPLATE_CACHE', PATH_CACHE .  'twig_cache/' );
 // cdn
 define('CDN_LINK', 'https://d2cdn-a.akamaihd.net');
 define('CDN_VERSION', 'v=301115');

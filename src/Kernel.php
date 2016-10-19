@@ -43,16 +43,6 @@ class Kernel implements KernelInterface
      */
     function __construct()
     {
-        // путь к приложению
-        define('PATH_APP', ROOT_PATH . 'app/' );
-        // конфигурация
-        define('PATH_CONFIG', ROOT_PATH . 'config/');
-        // шаблоны
-        define('PATH_TEMPLATE', PATH_APP .  'template/' );
-        // кэш
-        define('PATH_CACHE', ROOT_PATH . 'cache/');
-        define('PATH_TEMPLATE_CACHE', PATH_CACHE .  'twig_cache/' );
-
         $env = new Environment(ROOT_PATH);
         $env->load();
         if (empty(getenv('APP_ENV'))) putenv('APP_ENV=development');
