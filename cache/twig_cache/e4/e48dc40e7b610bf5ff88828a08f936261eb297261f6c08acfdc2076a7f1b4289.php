@@ -8,7 +8,7 @@ class __TwigTemplate_4ba2d4330324efc437f6f52cdab184a3d6af63e50f60a4516a3da1cca61
         parent::__construct($env);
 
         // line 1
-        $this->parent = $this->loadTemplate("main.twig", "home.twig", 1);
+        $this->parent = $this->loadTemplate("layout.twig", "home.twig", 1);
         $this->blocks = array(
             'css' => array($this, 'block_css'),
             'content' => array($this, 'block_content'),
@@ -17,7 +17,7 @@ class __TwigTemplate_4ba2d4330324efc437f6f52cdab184a3d6af63e50f60a4516a3da1cca61
 
     protected function doGetParent(array $context)
     {
-        return "main.twig";
+        return "layout.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
@@ -82,7 +82,7 @@ class __TwigTemplate_4ba2d4330324efc437f6f52cdab184a3d6af63e50f60a4516a3da1cca61
         return array (  63 => 23,  51 => 14,  44 => 9,  42 => 8,  39 => 7,  32 => 3,  29 => 2,  11 => 1,);
     }
 }
-/* {% extends 'main.twig' %}*/
+/* {% extends 'layout.twig' %}*/
 /* {% block css %}*/
 /* .hello {*/
 /*     margin-top: 50px;*/

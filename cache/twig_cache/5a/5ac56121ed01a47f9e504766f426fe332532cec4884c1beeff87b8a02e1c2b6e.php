@@ -8,7 +8,7 @@ class __TwigTemplate_d6402d87876d20739d14718fd327b340f6e4c4c8328447211bfa32d5878
         parent::__construct($env);
 
         // line 1
-        $this->parent = $this->loadTemplate("main.twig", "home.twig", 1);
+        $this->parent = $this->loadTemplate("layout.twig", "home.twig", 1);
         $this->blocks = array(
             'css' => array($this, 'block_css'),
             'content' => array($this, 'block_content'),
@@ -17,7 +17,7 @@ class __TwigTemplate_d6402d87876d20739d14718fd327b340f6e4c4c8328447211bfa32d5878
 
     protected function doGetParent(array $context)
     {
-        return "main.twig";
+        return "layout.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
@@ -84,7 +84,7 @@ class __TwigTemplate_d6402d87876d20739d14718fd327b340f6e4c4c8328447211bfa32d5878
 
     public function getSource()
     {
-        return "{% extends 'main.twig' %}
+        return "{% extends 'layout.twig' %}
 {% block css %}
 .hello {
     margin-top: 50px;

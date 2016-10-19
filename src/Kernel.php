@@ -34,6 +34,8 @@ class Kernel implements KernelInterface
     private $specs = null;
     // middleware instance
     private $stack = [];
+    // settings
+    private $configs = [];
 
     /**
      *  Create new application
@@ -41,8 +43,21 @@ class Kernel implements KernelInterface
      */
     function __construct()
     {
+        // путь к приложению
+        define('PATH_APP', ROOT_PATH . 'app/' );
+        // конфигурация
+        define('PATH_CONFIG', ROOT_PATH . 'config/');
+        // шаблоны
+        define('PATH_TEMPLATE', PATH_APP .  'template/' );
+        // кэш
+        define('PATH_CACHE', ROOT_PATH . 'cache/');
+        define('PATH_TEMPLATE_CACHE', PATH_CACHE .  'twig_cache/' );
+
         $env = new Environment(ROOT_PATH);
         $env->load();
+        if (empty(getenv('APP_ENV'))) putenv('APP_ENV=development');
+
+        $this->configs = require_once PATH_CONFIG . 'environment/' . getenv('APP_ENV') . '.php';
 
         // di container
         $this->container = new Container($this);
@@ -55,6 +70,10 @@ class Kernel implements KernelInterface
     public function env()
     {
         return getenv('APP_ENV');
+    }
+
+    public function config($name = '') {
+        return isset($this->configs[$name]) ? $this->configs[$name] : null;
     }
 
     /**
@@ -274,8 +293,13 @@ class Kernel implements KernelInterface
                 }
             break;
             default:
-                // 404 Not Found
-                throw new NotFoundException("Page not found", 404);
+                if ($this->env() == 'production') {
+                    // 404 Not Found
+                    throw new NotFoundException("Page not found", 404);
+                } else {
+                    // TODO: NoRouteError
+                    throw new NotFoundException("Page not found", 404);
+                }
             break;
         }
     }
