@@ -115,8 +115,6 @@ class Handler
      * @param  [type]         $e [description]
      */
     private function standartExceptionError($e){
-        // ( new HtmlTemplate($this->container, $e) )->renderException();
-
         echo ( new StandartException($e) )->getUserMessage($this->container);
 
 //         echo '<!DOCTYPE html>

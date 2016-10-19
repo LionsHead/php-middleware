@@ -28,24 +28,38 @@ class StandartException extends Exception implements ExceptionInterface
         if (defined('DEBUG_MODE') && DEBUG_MODE == true)
         {
             // при включенном режиме отладки
+            $convert = function ($size) {
+                $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
+                $re = ($size > 0) ? round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) :  0;
+                return $re . ' ' . $unit[$i];
+            };
+
             $html .= '<h3>';
-            $html .= " Code: ".$this->exception->getCode();
-            $html .= " - ". $this->exception->getMessage();
+            $html .= ' Code: '.$this->exception->getCode();
+            $html .= ' - '. $this->exception->getMessage();
+            $html .= ' <span class="label label-danger">DEBAG MODE </span>';
             $html .= '</h3>';
-            $html .= " File: ". $this->exception->getFile();
-            $html .= ", line: <b>". $this->exception->getLine() ."</b>";
-            $html .= '';
-            $html .= "<h4> Trace </h4>";
-            $html .= '<pre>';
-            $html .=  $this->exception->getTraceAsString() . "\n";
-            $html .= '</pre>';
-            $html .= "<h4> Print full trace </h4>";
-            $html .= '<pre>';
-            $html .= $this->getFullTrace();
-            $html .= '</pre>';
+            $html .= '<div class="file-name">';
+            $html .= ' File: '. $this->exception->getFile();
+            $html .= ', line: <b>'. $this->exception->getLine() .'</b>';
+            $html .= '</div>';
+            $html .= '<div class="row">
+              <div class="col-xs-2"> ENV: <b>'. getenv('APP_ENV') .'</b> </div>
+               <div class="col-xs-6"> Memory - start: ' . $convert(APP_START_MEMORY) . ', total: ' . $convert(memory_get_usage()) . ', Peak: ' . $convert(memory_get_peak_usage()) . ' </div>
+            </div>';
+            $html .= '<h4>Trace: </h4> <pre>' . $this->exception->getTraceAsString() . '</pre>';
+            $html .= '<h4><a href="#" data-toggle="collapse" data-target="#collapseFullTrace" aria-expanded="false" aria-controls="collapseExample">
+              Full Trace
+            </a>
+            </h4>';
+            $html .= '<div class="collapse" id="collapseFullTrace">
+            <pre>' . $this->getFullTrace() . '</pre>
+            </div>';
         } else {
             // обычный вариант
-            $html = $this->exception->getMessage();
+            $html .= '<h3>';
+            $html .= $this->exception->getMessage();
+            $html .= '</h3>';
         }
 
         return $html;
