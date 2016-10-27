@@ -2,7 +2,7 @@
     "autoload": {
         "psr-4": {
             "LionHead\\": "src/",
-            "App\\": "app/src/",
+            "App\\": "app/controllers/",
             "App\\Middleware\\": "app/middleware/",
             "": "app/library/"
         }
