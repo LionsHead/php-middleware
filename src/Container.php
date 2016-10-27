@@ -38,16 +38,19 @@ class Container extends Pimple
         // environment
         $this['environment'] = getenv('APP_ENV');
 
+        // application configs
+        $this['configs'] = $app->getEnvConfig();
+
         // response
         $this['response'] = new Response(null, 200);
 
         // database driver
         $this['database'] = function ($c) {
-            return new \LionHead\DataBase\Mysql($c, $app->config('database'));
+            return new \LionHead\DataBase\Pgsql($c, $app->config('database'));
         };
 
         // user driver
-        $this->container['auth'] = function ($c) {
+        $this['auth'] = function ($c) {
             return new \LionHead\Auth\User($c);
         };
 

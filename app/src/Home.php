@@ -15,8 +15,8 @@ class Home extends App
     {
         return new Response(
             $this->get('view')->render('home.twig', [
-                'title' => 'Test service',
-                'environment' => $_SERVER
+                'title' => $this->config('title'),
+                'environment' => $this->get('configs')
             ])
         );
     }

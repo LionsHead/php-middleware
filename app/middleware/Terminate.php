@@ -32,6 +32,8 @@ class Terminate implements TerminableInterface
           <div class="col-xs-4"> <span class="label label-info">Memory</span> start: ' . $convert(APP_START_MEMORY) . ', total: ' . $convert(memory_get_usage()) . ', Peak: ' . $convert(memory_get_peak_usage()) . ' </div>
           <p> Time: '.date(DATE_RFC822).'</p>
         </div>';
+
+        error_log('microtime '. ( microtime(true) - APP_START_TIME ));
     }
 
     public function terminate(Request $request, Response $response)
