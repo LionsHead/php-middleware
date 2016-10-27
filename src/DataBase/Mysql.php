@@ -24,13 +24,13 @@ class Mysql
         $this->container = $container;
 
         // pdo connect options
-        $opt  = [
+        $options  = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => TRUE,
         ];
         try {
-            $this->pdo_instance = new PDO($db['host'], $db['user'], $db['password'], $opt);
+            $this->pdo_instance = new PDO($db['host'], $db['user'], $db['password'], $options);
         } catch (PDOException $e) {
             echo 'Подключение не удалось: ' . $e->getMessage();
         }

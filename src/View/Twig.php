@@ -6,10 +6,10 @@ use \LionHead\App;
 
 class Twig extends App
 {
-    private $twig_loader;
-    private $twig_env;
+    private $twig_loader = null;
+    private $twig_env = null;
 
-    private $get = null;
+    private $container = null;
 
     /**
      * [__construct description]
@@ -17,7 +17,7 @@ class Twig extends App
      * @param  LionHeadContainer $container [description]
      */
     public function __construct(\LionHead\Container $container) {
-        $this->get = $container;
+        $this->container = $container;
 
         $this->twig_loader = new \Twig_Loader_Filesystem(PATH_TEMPLATE);
         $this->twig_env = new \Twig_Environment($this->twig_loader, [

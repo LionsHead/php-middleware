@@ -12,6 +12,7 @@ class App
 {
     // instanceof LionHead\Container
     private $container = null;
+    private $configs = [];
 
     /**
      * __construct
@@ -20,6 +21,7 @@ class App
      */
     public function __construct($container) {
         $this->container = $container;
+        $this->configs = $container['configs'];
     }
 
     /**
@@ -30,6 +32,11 @@ class App
     public function get($name = null)
     {
         return (is_null($name)) ? $this->container : $this->container[$name];
+    }
+
+    public function config($name = '')
+    {
+        return isset($this->configs[$name]) ? $this->configs[$name] : null;
     }
 
     /**
