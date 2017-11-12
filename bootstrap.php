@@ -1,6 +1,6 @@
 <?php
 
-define('DEBUG_MODE', true);
+define('DEBUG_MODE', getenv('DEBUG_MODE') || false);
 
 define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
 

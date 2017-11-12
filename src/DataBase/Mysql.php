@@ -32,7 +32,7 @@ class Mysql
         try {
             $this->pdo_instance = new PDO($db['host'], $db['user'], $db['password'], $options);
         } catch (PDOException $e) {
-            echo 'Подключение не удалось: ' . $e->getMessage();
+            echo 'Connect failed: ' . $e->getMessage();
         }
     }
 
