@@ -4,6 +4,7 @@ namespace LionHead\Auth;
 use \LionHead\App;
 use \LionHead\Container;
 
+
 class User extends App {
 
     use UserProfileTrait;
@@ -111,16 +112,6 @@ class User extends App {
         return $this->profile['id'];
     }
 
-
-    /**
-     * return user Nickname
-     * @method getNickname
-     * @return string      nickname
-     */
-    public function getNickname() {
-        return $this->profile['nickname'];
-    }
-
     /**
      * return user auth status
      * @method getAuth
@@ -128,15 +119,6 @@ class User extends App {
      */
     public function getAuth() {
         return $this->auth;
-    }
-
-    /**
-     * [getLevel description]
-     * @method getLevel
-     * @return [type]   [description]
-     */
-    public function getLevel() {
-        return $this->profile['user_level'];
     }
 
     /**
